@@ -1,17 +1,7 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { currentTheme, openPalette, toggleTheme, type Theme } from "@/lib/theme";
-
-const subscribeTheme = (cb: () => void) => {
-  window.addEventListener("themechange", cb);
-  const mq = matchMedia("(prefers-color-scheme: dark)");
-  mq.addEventListener("change", cb);
-  return () => {
-    window.removeEventListener("themechange", cb);
-    mq.removeEventListener("change", cb);
-  };
-};
+import { useSyncExternalStore } from "react";
+import { currentTheme, openPalette, subscribeTheme, toggleTheme, type Theme } from "@/lib/theme";
 
 export function ThemeToggle() {
   const theme = useSyncExternalStore<Theme | null>(subscribeTheme, currentTheme, () => null);
@@ -39,7 +29,7 @@ export function PaletteButton() {
       type="button"
       onClick={openPalette}
       aria-haspopup="dialog"
-      className="flex h-11 items-center gap-2 rounded-full border border-line px-4 text-sm hover:border-ink transition-colors"
+      className="flex h-11 items-center gap-2 rounded-full border border-line px-4 text-sm hover:border-ink transition-colors lg:w-72 lg:justify-between lg:text-muted"
     >
       <span className="md:hidden">Menu</span>
       <span className="hidden md:inline">Search</span>
@@ -47,21 +37,5 @@ export function PaletteButton() {
         ⌘K
       </span>
     </button>
-  );
-}
-
-export function LocalClock() {
-  const [time, setTime] = useState<string | null>(null);
-  useEffect(() => {
-    const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit" });
-    const tick = () => setTime(fmt.format(new Date()));
-    tick();
-    const id = setInterval(tick, 15_000);
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <span className="label tabular-nums" aria-label={time ? `Local time in Cebu: ${time}` : undefined}>
-      CEB {time ?? "--:--"} PHT
-    </span>
   );
 }

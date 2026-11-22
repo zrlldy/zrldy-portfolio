@@ -1,29 +1,20 @@
 import type { Project } from "@/content/projects";
 
 // Project Brief (see GLOSSARY.md): verified facts only.
-// reveal=false where cards mount after the scroll controller ran (e.g. filtering), or they would stay hidden.
 export function ProjectBrief({
   project,
-  index,
   headingLevel = 3,
-  reveal = true,
 }: {
   project: Project;
-  index: number;
   headingLevel?: 2 | 3;
-  reveal?: boolean;
 }) {
   const H = `h${headingLevel}` as const;
   return (
     <article
       id={project.slug}
-      data-reveal={reveal || undefined}
       className="group grid scroll-mt-24 gap-6 border-t border-line py-10 md:grid-cols-12 md:gap-8"
     >
       <div className="md:col-span-3 flex md:flex-col justify-between gap-2">
-        <span className="label">
-          <span className="text-accent-ink">{String(index + 1).padStart(2, "0")}</span> · {project.code}
-        </span>
         <span className="label">{project.context}</span>
       </div>
       <div className="md:col-span-5">

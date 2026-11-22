@@ -96,8 +96,11 @@ function Scene({
     labels.current.forEach((el, id) => {
       const n = byId.get(id);
       if (!n) return;
-      const v = tmp.copy(n.pos).applyMatrix4(g.matrixWorld).project(camera);
-      const show = n.hub || id === hovered || neighbors.has(id);
+      const v = tmp.copy(n.pos).applyMatrix4(g.matrixWorld);
+      // Hubs on the far half of the ring project onto the near ones; label only the near half.
+      const facing = v.z > 0;
+      v.project(camera);
+      const show = (n.hub && facing) || id === hovered || neighbors.has(id);
       el.style.opacity = show && v.z < 1 ? (id === hovered || n.hub ? "1" : "0.75") : "0";
       el.style.transform = `translate(${((v.x + 1) / 2) * size.width}px, ${((1 - v.y) / 2) * size.height}px) translate(-50%, -150%)`;
     });
@@ -169,7 +172,7 @@ export default function SkillsGraph({ active }: { active: boolean }) {
               if (el) labels.current.set(n.id, el);
               else labels.current.delete(n.id);
             }}
-            className={`absolute left-0 top-0 whitespace-nowrap opacity-0 ${n.hub ? "label !text-ink" : "font-mono text-[11px] text-ink"}`}
+            className={`absolute left-0 top-0 whitespace-nowrap opacity-0 transition-opacity duration-300 ${n.hub ? "label !text-ink" : "font-mono text-[11px] text-ink"}`}
           >
             {n.label}
           </span>

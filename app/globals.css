@@ -1,19 +1,26 @@
+/* Hallmark · v2.0.0 · built: the project · redesign: polish · theme: project's own (paper, signal red, slate; Geist) · genre: editorial · job: hire */
+/* Hallmark · pre-emit critique: P4 H3 E4 S3 R4 V4 · weakest: H, the hero name sits in a small label; kept at polish depth, a full redesign would set it as the head */
+/* Hallmark · waive 26b · no disabled attribute or aria-disabled anywhere · the command palette has no control that can be disabled */
 @import "tailwindcss";
 
 /* ── Tokens ────────────────────────────────────────────────────────────
-   Paper & ink with one vermilion signal. Solid colors only — no gradients.
-   Contrast (WCAG): ink/paper 15.9, muted/paper 5.9 (light) 7.0 (dark),
-   accent-ink/paper 5.6 (light), white on accent 4.56. */
+   Palette: paper #f6f7eb and slate #393e41 only; no hue. Solid colors only, no gradients.
+   The accent tokens are kept as names but resolve to the ink, so emphasis comes from weight and size.
+   Contrast (WCAG): light ink/paper 10.0, muted/paper 5.6. Dark ink/paper 12.5, muted/paper 6.0. */
 :root {
-  --paper: #f2eee6;
-  --surface: #faf8f3;
-  --ink: #161412;
-  --muted: #5f5a52;
-  --line: #d9d2c5;
-  --accent: #d2451b;
-  --accent-ink: #a93612;
-  --on-accent: #ffffff;
-  --accent-inverse: #ff7f57; /* accent text on bg-ink panels */
+  --paper: #f6f7eb;
+  --surface: #fbfbf4;
+  --ink: #393e41;
+  --muted: #5d6366;
+  --line: #d8dacd;
+  --accent: #393e41;
+  --accent-ink: #393e41;
+  --on-accent: #f6f7eb; /* text on --accent-ink fills */
+  --accent-inverse: #f6f7eb; /* accent text on bg-ink panels */
+  /* Terminal dialog is dark in both themes */
+  --term-bg: #2b2f31;
+  --term-ink: #f6f7eb;
+  --term-prompt: #a9aeac;
   color-scheme: light;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -26,28 +33,28 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #11100f;
-    --surface: #1a1817;
-    --ink: #efeae0;
-    --muted: #a29c91;
-    --line: #2e2b28;
-    --accent: #ff6b3d;
-    --accent-ink: #ff7f57;
-    --on-accent: #11100f;
-    --accent-inverse: #a93612;
+    --paper: #2b2f31;
+    --surface: #393e41;
+    --ink: #f6f7eb;
+    --muted: #a9aeac;
+    --line: #454b4e;
+    --accent: #f6f7eb;
+    --accent-ink: #f6f7eb;
+    --on-accent: #2b2f31;
+    --accent-inverse: #393e41;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --paper: #11100f;
-  --surface: #1a1817;
-  --ink: #efeae0;
-  --muted: #a29c91;
-  --line: #2e2b28;
-  --accent: #ff6b3d;
-  --accent-ink: #ff7f57;
-  --on-accent: #11100f;
-  --accent-inverse: #a93612;
+  --paper: #2b2f31;
+  --surface: #393e41;
+  --ink: #f6f7eb;
+  --muted: #a9aeac;
+  --line: #454b4e;
+  --accent: #f6f7eb;
+  --accent-ink: #f6f7eb;
+  --on-accent: #2b2f31;
+  --accent-inverse: #393e41;
   color-scheme: dark;
 }
 
@@ -61,6 +68,9 @@
   --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
   --color-accent-inverse: var(--accent-inverse);
+  --color-term: var(--term-bg);
+  --color-term-ink: var(--term-ink);
+  --color-term-prompt: var(--term-prompt);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-serif-display);
@@ -72,7 +82,7 @@
   --text-headline--line-height: 0.95;
   --text-title: clamp(1.5rem, 2.6vw, 2.25rem);
   --text-title--line-height: 1.1;
-  --text-label: 0.6875rem;
+  --text-label: 0.8125rem;
   --text-label--line-height: 1.4;
 }
 
@@ -80,8 +90,11 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  overflow-x: clip;
+  scrollbar-color: var(--line) var(--paper);
 }
 body {
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
@@ -89,7 +102,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 ::selection {
-  background: var(--accent);
+  background: var(--accent-ink);
   color: var(--on-accent);
 }
 @layer base {
@@ -107,12 +120,9 @@ body {
     margin-inline: auto;
     padding-inline: var(--gutter);
   }
-  /* Mono HUD label: the "instrument panel" voice of the site */
+  /* Small label: body face, a step smaller */
   .label {
-    font-family: var(--font-geist-mono), ui-monospace, monospace;
     font-size: var(--text-label);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
     color: var(--muted);
   }
   .rule {
@@ -146,13 +156,13 @@ body {
     transform: scale(0.97);
   }
   .btn-primary {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--accent-ink);
+    border-color: var(--accent-ink);
     color: var(--on-accent);
   }
   .btn-primary:hover {
-    background: var(--ink);
-    border-color: var(--ink);
+    background: var(--muted);
+    border-color: var(--muted);
     color: var(--paper);
   }
   .btn-ghost:hover {
@@ -226,18 +236,20 @@ body {
   animation-delay: calc(var(--i, 0) * 90ms + 400ms);
 }
 
-/* Scroll reveals: hidden only when JS runs and motion is allowed; GSAP reveals them. */
-@media (prefers-reduced-motion: no-preference) {
-  .js [data-reveal] {
-    opacity: 0;
-  }
-}
+/* Scroll motion in pure CSS: no inline styles on server-rendered nodes, so nothing to mismatch at hydration.
+   Browsers without scroll-driven animations simply show the content. */
 
-/* Page transitions via React <ViewTransition> */
-::view-transition-old(root) {
+/* Page transitions via React <ViewTransition name="page">: only <main> animates.
+   The root (sidebar, footer) and the named header hold still, so navigating never looks like a reload. */
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(site-header) {
+  animation: none;
+}
+::view-transition-old(page) {
   animation: 220ms var(--ease-in-out) both vt-out;
 }
-::view-transition-new(root) {
+::view-transition-new(page) {
   animation: 520ms var(--ease-out) 120ms both vt-in;
 }
 @keyframes vt-out {

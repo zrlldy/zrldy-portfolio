@@ -23,17 +23,17 @@ export const projects: Project[] = [
     slug: "jao",
     code: "JAO",
     title: "Job Application & Onboarding System",
-    kind: "Backend architecture · API development",
-    context: "Logistics Company · current role",
+    kind: "Backend architecture and API development",
+    context: "Logistics company, current role",
     categories: ["Backend", "Enterprise Systems"],
     featured: true,
     summary:
-      "Contributed to the development of a Job Application and Onboarding System, focusing on backend architecture, relational database design, and REST API development.",
+      "An internal system for handling job applications and onboarding new hires. My work centers on the backend: architecture, relational database design, and the REST API.",
     contributions: [
-      "Designed the backend system architecture",
-      "Designed the database structures",
-      "Designed the REST API endpoints",
-      "Contributed to feature delivery and problem-solving",
+      "Backend system architecture",
+      "Database structure",
+      "REST API endpoints",
+      "Feature delivery and bug fixing",
     ],
   },
   {
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     code: "SCW",
     title: "Schedwise",
     kind: "Timetabling system",
-    context: "Built from scratch",
+    context: "Capstone project",
     categories: ["Full-Stack"],
     summary:
       "A timetabling system for building class schedules by hand. It covers faculty loading, faculty assignments, room allocation, and schedule search and filtering.",
@@ -63,14 +63,13 @@ export const projects: Project[] = [
     code: "TDS",
     title: "TIDIS",
     kind: "Disaster information system",
-    context: "Internship · MDRRMO Tabogon",
+    context: "Internship, MDRRMO Tabogon",
     categories: ["Backend", "Public Service"],
     summary:
       "A disaster information system built during my internship at MDRRMO Tabogon, covering barangay profiling, hazard mapping, household records, and inventory.",
     contributions: [
       "Backend development",
       "API engineering",
-      "System development during the internship",
     ],
     features: [
       "Disaster information management",
@@ -89,7 +88,7 @@ export const projects: Project[] = [
     context: "Contribution to an existing system",
     categories: ["Backend", "Enterprise Systems"],
     summary:
-      "Contributed to HRIS payroll functionality, assisting with the implementation of statutory deductions and government contribution calculations, including SSS, PhilHealth, Pag-IBIG, and withholding tax.",
+      "Helped implement statutory deductions in an existing HRIS payroll module: SSS, PhilHealth, and Pag-IBIG contributions, plus withholding tax.",
     contributions: [
       "Implemented and supported statutory deduction logic",
       "SSS, PhilHealth, and Pag-IBIG contributions",

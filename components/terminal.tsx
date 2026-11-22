@@ -44,7 +44,7 @@ export function respond(input: string): string[] | "clear" | { open: string } | 
     case "experience":
       return experience.map((r) => `${r.title} · ${r.org}${r.period ? ` · ${r.period}` : ""}`);
     case "education":
-      return [`${education.degree}`, `${education.institution} — ${education.campus}`, `${education.year} · ${education.distinction}`];
+      return [`${education.degree}`, `${education.institution} — ${education.campus}`, `Class of ${education.year}`];
     case "contact":
       return [`email   ${profile.email}`, `github  ${profile.github}`, `based   ${profile.location}`];
     case "open":
@@ -124,14 +124,14 @@ export function Terminal() {
       ref={dialogRef}
       aria-label="Portfolio terminal"
       onClick={(e) => e.target === dialogRef.current && dialogRef.current?.close()}
-      className="m-auto w-[min(760px,calc(100vw-2rem))] rounded-xl border border-line bg-[#0f0e0d] p-0 text-[#e9e4da] shadow-2xl backdrop:bg-black/50"
+      className="m-auto w-[min(760px,calc(100vw-2rem))] rounded-xl border border-line bg-term p-0 text-term-ink shadow-2xl backdrop:bg-black/50"
     >
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-        <span className="font-mono text-xs text-white/60">jn-shell · portfolio content only</span>
+        <span className="text-xs text-white/60">jn-shell: portfolio content only</span>
         <button
           type="button"
           onClick={() => dialogRef.current?.close()}
-          className="font-mono text-xs text-white/60 hover:text-white"
+          className="text-xs text-white/60 hover:text-white"
           aria-label="Close terminal"
         >
           [esc]
@@ -146,7 +146,7 @@ export function Terminal() {
             <p key={i} className="whitespace-pre-wrap break-words">
               {l.kind === "in" ? (
                 <>
-                  <span className="text-[#ff7f57]">jerold@cebu</span>
+                  <span className="text-term-prompt">jerold@cebu</span>
                   <span className="text-white/40">:~$ </span>
                   {l.text}
                 </>
@@ -158,7 +158,7 @@ export function Terminal() {
         </div>
         <div ref={endRef} className="flex items-center">
           <label htmlFor="term-input" className="shrink-0">
-            <span className="text-[#ff7f57]">jerold@cebu</span>
+            <span className="text-term-prompt">jerold@cebu</span>
             <span className="text-white/40">:~$&nbsp;</span>
           </label>
           <input
@@ -171,7 +171,7 @@ export function Terminal() {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={onKeyDown}
-            className="w-full bg-transparent caret-[#ff7f57] outline-none"
+            className="w-full bg-transparent caret-term-prompt outline-none"
             aria-label="Terminal command"
           />
         </div>

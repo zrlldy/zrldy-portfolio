@@ -16,22 +16,22 @@ export default function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#f2eee6",
-          color: "#161412",
+          background: "#f6f7eb",
+          color: "#393e41",
           padding: 72,
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, letterSpacing: 2, color: "#5f5a52" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, letterSpacing: 2, color: "#5d6366" }}>
           <span>JEROLD NOYNAY — BACKEND DEVELOPER</span>
           <span>CEBU CITY, PH</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 112, fontWeight: 700, letterSpacing: -5, lineHeight: 0.95 }}>
           <span>I build the parts</span>
-          <span style={{ color: "#d2451b" }}>you don&rsquo;t see.</span>
+          <span>you don&rsquo;t see.</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 26 }}>
-          <div style={{ width: 22, height: 22, background: "#d2451b" }} />
-          <span>{profile.subline}</span>
+          <div style={{ width: 22, height: 22, background: "#393e41" }} />
+          <span>REST APIs · relational databases · software architecture</span>
         </div>
       </div>
     ),

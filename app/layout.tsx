@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { ViewTransition } from "react";
 import { CommandPalette } from "@/components/command-palette";
 import { CustomCursor } from "@/components/custom-cursor";
-import { MotionRoot } from "@/components/motion-root";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Terminal } from "@/components/terminal";
@@ -49,8 +48,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2eee6" },
-    { media: "(prefers-color-scheme: dark)", color: "#11100f" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f7eb" },
+    { media: "(prefers-color-scheme: dark)", color: "#2b2f31" },
   ],
 };
 
@@ -95,7 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col lg:pl-56">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
@@ -103,7 +102,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <SiteHeader />
-        <ViewTransition>
+        <ViewTransition name="page">
           <main id="main" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
@@ -112,7 +111,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <CommandPalette />
         <Terminal />
         <CustomCursor />
-        <MotionRoot />
       </body>
     </html>
   );

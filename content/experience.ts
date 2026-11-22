@@ -10,15 +10,13 @@ export const experience: Role[] = [
   {
     title: "Backend Developer",
     org: "Logistics Company",
-    period: "Jul 2026 — Present",
+    period: "Jul 2026 to present",
     location: "Cebu City, Philippines",
     points: [
-      "Develop REST APIs",
-      "Design relational databases",
-      "Contribute to system architecture",
-      "Collaborate with frontend developers",
-      "Support the implementation of backend functionality",
-      "Contributed to delivering features and resolving development problems in a job application and onboarding system",
+      "Build REST APIs and design relational databases",
+      "Contribute to system architecture decisions",
+      "Work with frontend developers to ship backend functionality",
+      "Deliver features and fix issues on a job application and onboarding system",
     ],
   },
   {

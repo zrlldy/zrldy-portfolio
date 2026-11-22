@@ -9,6 +9,16 @@ export function currentTheme(): Theme {
   return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
+export const subscribeTheme = (cb: () => void) => {
+  window.addEventListener("themechange", cb);
+  const mq = matchMedia("(prefers-color-scheme: dark)");
+  mq.addEventListener("change", cb);
+  return () => {
+    window.removeEventListener("themechange", cb);
+    mq.removeEventListener("change", cb);
+  };
+};
+
 export function setTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
   try {

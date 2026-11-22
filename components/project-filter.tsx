@@ -31,7 +31,7 @@ export function ProjectFilter() {
       </p>
       <div>
         {shown.map((p) => (
-          <ProjectBrief key={p.slug} project={p} index={projects.indexOf(p)} headingLevel={2} reveal={false} />
+          <ProjectBrief key={p.slug} project={p} headingLevel={2} />
         ))}
       </div>
     </div>

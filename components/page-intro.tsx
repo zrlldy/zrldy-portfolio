@@ -1,8 +1,7 @@
-export function PageIntro({ label, title, children }: { label: string; title: React.ReactNode; children?: React.ReactNode }) {
+export function PageIntro({ title, children }: { title: React.ReactNode; children?: React.ReactNode }) {
   return (
     <header className="wrap pt-32 pb-16 md:pt-44 md:pb-24">
-      <p className="label fade-in">{label}</p>
-      <h1 className="mt-6 max-w-5xl text-headline font-medium tracking-[-0.035em]">
+      <h1 className="max-w-5xl text-headline font-medium tracking-[-0.035em]">
         <span className="rise-line">
           <span>{title}</span>
         </span>

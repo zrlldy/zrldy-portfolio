@@ -30,7 +30,6 @@ export function SkillsGraphIsland() {
 
   return (
     <div ref={box} className="ticks relative hidden aspect-[7/6] w-full bg-surface lg:block" aria-hidden="true">
-      <span className="label absolute left-4 top-4 z-10">fig. 02 — the stack as a graph</span>
       {capable ? (
         near && <SkillsGraph active={visible} />
       ) : (

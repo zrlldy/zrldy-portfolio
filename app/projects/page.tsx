@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <PageIntro label="Projects" title="Work, briefly.">
+      <PageIntro title="Work, briefly.">
         Short briefs of what I built and what I owned on each project. Full case studies will appear here as they
         are written and cleared for publishing.
       </PageIntro>

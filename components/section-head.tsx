@@ -1,12 +1,23 @@
-export function SectionHead({ index, label, title, id }: { index: string; label: string; title: React.ReactNode; id: string }) {
+import Link from "next/link";
+
+export function SectionHead({ label, id }: { label: string; id: string }) {
   return (
-    <div className="grid gap-6 border-t border-line pt-6 md:grid-cols-12">
-      <p className="label md:col-span-3" data-reveal>
-        <span className="text-accent-ink">{index}</span> / {label}
-      </p>
-      <h2 id={id} className="text-headline font-medium tracking-[-0.03em] md:col-span-9" data-reveal>
-        {title}
-      </h2>
-    </div>
+    <h2 id={id} className="mb-6 text-xl font-medium tracking-[-0.02em]">
+      {label}
+    </h2>
+  );
+}
+
+// Trailing "more" link at the bottom of a section.
+export function SectionMore({ href, children }: { href: string; children: React.ReactNode }) {
+  const external = href.startsWith("http");
+  return (
+    <Link
+      href={href}
+      className="label mt-5 inline-block underline underline-offset-4 transition-colors hover:!text-accent-ink"
+      {...(external && { target: "_blank", rel: "noopener" })}
+    >
+      {children}
+    </Link>
   );
 }

@@ -2,7 +2,7 @@ export const disciplines = [
   { name: "Anime music videos", note: "Cutting footage to rhythm, beat by beat." },
   { name: "Video editing", note: "Pacing, transitions, and story." },
   { name: "Motion graphics", note: "Type, shape, and timing in motion." },
-  { name: "Apple-inspired motion", note: "Restrained, precise, physically believable." },
+  { name: "Apple-inspired motion", note: "Clean, precise motion in the style of Apple product videos." },
 ];
 
 export type CreativePiece = {
