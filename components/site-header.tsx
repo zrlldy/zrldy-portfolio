@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { NavLinks } from "./nav-links";
 import { profile } from "@/content/profile";
@@ -9,7 +10,8 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 [view-transition-name:site-header] border-b border-line bg-paper lg:inset-y-0 lg:right-auto lg:w-56 lg:border-b-0 lg:border-r">
       <div className="wrap flex h-16 items-center justify-between gap-4 lg:h-full lg:max-w-none lg:flex-col lg:items-start lg:justify-start lg:px-8 lg:py-8">
-        <Link href="/" className="font-medium tracking-tight">
+        <Link href="/" className="flex items-center gap-3 font-medium tracking-tight">
+          <Image src="/images/logo.jpg" alt="" width={28} height={28} className="size-7 rounded-full object-cover" />
           Jerold Noynay
         </Link>
         {/* Below lg: one top bar (nav, search, theme). From lg: sidebar holds nav, shortcut hints and an email line; search + theme move to a top bar over the content. */}
