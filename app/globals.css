@@ -1,26 +1,296 @@
+/* Hallmark · v2.0.0 · built: the project · redesign: polish · theme: project's own (paper, signal red, slate; Geist) · genre: editorial · job: hire */
+/* Hallmark · pre-emit critique: P4 H3 E4 S3 R4 V4 · weakest: H, the hero name sits in a small label; kept at polish depth, a full redesign would set it as the head */
+/* Hallmark · waive 26b · no disabled attribute or aria-disabled anywhere · the command palette has no control that can be disabled */
 @import "tailwindcss";
 
+/* ── Tokens ────────────────────────────────────────────────────────────
+   Palette: paper #f6f7eb and slate #393e41 only; no hue. Solid colors only, no gradients.
+   The accent tokens are kept as names but resolve to the ink, so emphasis comes from weight and size.
+   Contrast (WCAG): light ink/paper 10.0, muted/paper 5.6. Dark ink/paper 12.5, muted/paper 6.0. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --paper: #f6f7eb;
+  --surface: #fbfbf4;
+  --ink: #393e41;
+  --muted: #5d6366;
+  --line: #d8dacd;
+  --accent: #393e41;
+  --accent-ink: #393e41;
+  --on-accent: #f6f7eb; /* text on --accent-ink fills */
+  --accent-inverse: #f6f7eb; /* accent text on bg-ink panels */
+  /* Terminal dialog is dark in both themes */
+  --term-bg: #2b2f31;
+  --term-ink: #f6f7eb;
+  --term-prompt: #a9aeac;
+  color-scheme: light;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-slow: 800ms;
+  --gutter: clamp(1rem, 4vw, 3rem);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --paper: #2b2f31;
+    --surface: #393e41;
+    --ink: #f6f7eb;
+    --muted: #a9aeac;
+    --line: #454b4e;
+    --accent: #f6f7eb;
+    --accent-ink: #f6f7eb;
+    --on-accent: #2b2f31;
+    --accent-inverse: #393e41;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #2b2f31;
+  --surface: #393e41;
+  --ink: #f6f7eb;
+  --muted: #a9aeac;
+  --line: #454b4e;
+  --accent: #f6f7eb;
+  --accent-ink: #f6f7eb;
+  --on-accent: #2b2f31;
+  --accent-inverse: #393e41;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --color-accent-inverse: var(--accent-inverse);
+  --color-term: var(--term-bg);
+  --color-term-ink: var(--term-ink);
+  --color-term-prompt: var(--term-prompt);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif-display);
+
+  /* Type scale: fluid display, fixed reading sizes */
+  --text-display: clamp(3.25rem, 10.5vw, 11rem);
+  --text-display--line-height: 0.88;
+  --text-headline: clamp(2.25rem, 5.5vw, 5rem);
+  --text-headline--line-height: 0.95;
+  --text-title: clamp(1.5rem, 2.6vw, 2.25rem);
+  --text-title--line-height: 1.1;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.4;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  overflow-x: clip;
+  scrollbar-color: var(--line) var(--paper);
+}
+body {
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: var(--accent-ink);
+  color: var(--on-accent);
+}
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  /* Small label: body face, a step smaller */
+  .label {
+    font-size: var(--text-label);
+    color: var(--muted);
+  }
+  .rule {
+    border-top: 1px solid var(--line);
+  }
+  .link {
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  .link:hover {
+    text-decoration-thickness: 2px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    padding: 0 1.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-primary {
+    background: var(--accent-ink);
+    border-color: var(--accent-ink);
+    color: var(--on-accent);
+  }
+  .btn-primary:hover {
+    background: var(--muted);
+    border-color: var(--muted);
+    color: var(--paper);
+  }
+  .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  /* Corner ticks used to frame placeholders and figures like a viewfinder */
+  .ticks {
+    position: relative;
+  }
+  .ticks::before,
+  .ticks::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--ink);
+    pointer-events: none;
+  }
+  .ticks::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .ticks::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: 0;
+    border-top: 0;
+  }
+  .kbd {
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.6875rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.05rem 0.35rem;
+    color: var(--muted);
+  }
+}
+
+/* ── Motion ───────────────────────────────────────────────────────────
+   Principles: transform + opacity only, one expo-out curve, entrances
+   ≤ 800ms, nothing loops while off-screen, everything off for
+   prefers-reduced-motion. */
+
+/* Hero entrance: pure CSS so it starts on first paint (no hydration wait, good LCP). */
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.rise-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.rise-line > span {
+  display: inline-block;
+  animation: rise 1s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 120ms);
+}
+.fade-in {
+  animation: fade-in 900ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 400ms);
+}
+
+/* Scroll motion in pure CSS: no inline styles on server-rendered nodes, so nothing to mismatch at hydration.
+   Browsers without scroll-driven animations simply show the content. */
+
+/* Page transitions via React <ViewTransition name="page">: only <main> animates.
+   The root (sidebar, footer) and the named header hold still, so navigating never looks like a reload. */
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(site-header) {
+  animation: none;
+}
+::view-transition-old(page) {
+  animation: 220ms var(--ease-in-out) both vt-out;
+}
+::view-transition-new(page) {
+  animation: 520ms var(--ease-out) 120ms both vt-in;
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Desktop custom cursor sits above everything but never takes input. */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100;
+  border-radius: 999px;
+  will-change: transform;
 }
