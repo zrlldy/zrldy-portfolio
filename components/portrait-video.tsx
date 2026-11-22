@@ -22,12 +22,12 @@ export function PortraitVideo({ src, video, alt }: { src: string; video: string;
 
   return (
     <div
-      className="relative aspect-[4/5] overflow-hidden bg-surface"
+      className="relative aspect-[4/3] overflow-hidden bg-surface sm:aspect-[4/5]"
       onPointerEnter={(e) => e.pointerType === "mouse" && play()}
       onPointerLeave={(e) => e.pointerType === "mouse" && stop()}
       onClick={() => (playing ? stop() : play())}
     >
-      <Image src={src} alt={alt} fill priority sizes="(min-width: 640px) 280px, 256px" className="object-cover" />
+      <Image src={src} alt={alt} fill priority sizes="(min-width: 640px) 280px, 100vw" className="object-cover object-[60%_62%] sm:object-center" />
       <video
         ref={ref}
         src={video}
@@ -36,7 +36,7 @@ export function PortraitVideo({ src, video, alt }: { src: string; video: string;
         playsInline
         preload="none"
         aria-hidden="true"
-        className={`absolute inset-0 size-full object-cover transition-opacity duration-300 ease-[var(--ease-out)] ${playing ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 size-full object-cover object-[60%_45%] transition-opacity duration-300 ease-[var(--ease-out)] ${playing ? "opacity-100" : "opacity-0"}`}
       />
     </div>
   );

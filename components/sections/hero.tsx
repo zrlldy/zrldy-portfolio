@@ -81,7 +81,7 @@ export function Hero() {
           </ul>
         </div>
 
-        <figure className="fade-in max-w-[16rem] sm:max-w-none" style={{ "--i": 1 } as React.CSSProperties}>
+        <figure className="fade-in" style={{ "--i": 1 } as React.CSSProperties}>
           {profile.portrait && (
             <PortraitVideo src={profile.portrait} video="/videos/portrait.mp4" alt={`Portrait of ${profile.name}`} />
           )}
